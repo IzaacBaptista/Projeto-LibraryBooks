@@ -1,5 +1,4 @@
-import React from 'react';
-import { livros } from './ultimosLancamentos';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Titulo } from '../Titulo';
 
@@ -27,17 +26,37 @@ const UltimosLancamentosContainer = styled.section`
 `;
 
 function UltimosLancamentos() {
+  const [books, setBooks] = useState([]);
+
+  useEffect(() => {
+    const apiKey = 'AIzaSyBy2BMf98ixSPXySoPpA46gkcbZReGPBhg';
+    const apiUrl = `https://www.googleapis.com/books/v1/volumes?q=javascript&key=${apiKey}`;
+
+
+    fetch(apiUrl)
+      .then((response) => response.json())
+      .then((data) => {
+        const booksData = data.items || [];
+        setBooks(booksData);
+      })
+      .catch((error) => {
+        console.error('Error fetching data from Google Books API:', error);
+      });
+  }, []);
+
   return (
     <section>
       <Titulo>ULTIMOS LANCAMENTOS</Titulo>
       <UltimosLancamentosContainer>
-        {livros.map((livro, index) => (
+        {books.map((book, index) => (
           <LivroContainer key={index}>
-            <img src={livro.src} alt={livro.nome} />
-            <LivroItem>Nome: {livro.nome}</LivroItem>
-            <LivroItem>Autor: {livro.autor}</LivroItem>
-            <LivroItem>Categoria: {livro.categoria}</LivroItem>
-            <LivroItem>Páginas: {livro.paginas}</LivroItem>
+            {book.volumeInfo.imageLinks && (
+              <img src={book.volumeInfo.imageLinks.smallThumbnail || book.volumeInfo.imageLinks.thumbnail} alt={book.volumeInfo.title} />
+            )}
+            <LivroItem>Nome: {book.volumeInfo.title}</LivroItem>
+            <LivroItem>Autor: {book.volumeInfo.authors}</LivroItem>
+            <LivroItem>Categoria: {book.volumeInfo.categories}</LivroItem>
+            <LivroItem>Páginas: {book.volumeInfo.pageCount}</LivroItem>
           </LivroContainer>
         ))}
       </UltimosLancamentosContainer>
