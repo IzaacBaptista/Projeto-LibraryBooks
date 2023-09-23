@@ -6,7 +6,7 @@ function getTodosLivros() {
 
 function getLivroById(id) {
     const livros = getTodosLivros()
-    const livro = livros.find(livro => livro.id == id)
+    const livro = livros.find(livro => livro.id === id)
     if (livro) {
         return livro
     } else {
@@ -16,7 +16,7 @@ function getLivroById(id) {
 
 function patchLivro(id) {
     const livros = getTodosLivros()
-    const livro = livros.find(livro => livro.id == id)
+    const livro = livros.find(livro => livro.id === id)
     if (livro) {
         livro.emprestado = !livro.emprestado
         fs.writeFileSync("./model/livros.json", JSON.stringify(livros))
@@ -26,9 +26,16 @@ function patchLivro(id) {
     }
 }
 
-function postLivro() {
+function postLivro(body) {
     const livros = getTodosLivros()
+    const livro = {
+        id: (livros.length + 1).toString(),
+        nome: body.nome,
+        src: "https://source.unsplash.com/random",
+    }
+    livros.push(livro)
     fs.writeFileSync("./model/livros.json", JSON.stringify(livros))
+    return livro
 }
 
 function deleteLivro(id) {
