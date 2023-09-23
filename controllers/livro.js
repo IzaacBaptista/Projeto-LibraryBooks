@@ -27,7 +27,8 @@ function getLivros(req, res) {
 
 function postLivros(req, res) {
     try {
-        const livro = postLivro()
+        const body = req.body
+        const livro = postLivro(body)
         res.send(livro)
     } catch (error) {
         console.log(error)
