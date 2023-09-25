@@ -1,14 +1,11 @@
-const { getTodosLivros } = require("../model/livro.js")
-const { getLivroById } = require("../model/livro.js")
-const { patchLivro } = require("../model/livro.js")
-const { postLivro } = require("../model/livro.js")
-const { deleteLivro } = require("../model/livro.js")
+const { getTodosLivros, getLivroById, postLivro, patchLivroById, deleteLivro } = require('../model/livro')
 
 function getLivro(req, res) {
     try {
         const id = req.params.id
         const livro = getLivroById(id)
         res.send(livro)
+        res.status(200).send()
     } catch (error) {
         console.log(error)
         res.status(500).send(error.message)
@@ -19,6 +16,7 @@ function getLivros(req, res) {
     try {
        const livros = getTodosLivros()
        res.send(livros)
+       res.status(200).send()
     } catch (error) {
         console.log(error)
         res.status(500).send(error.message)
@@ -30,17 +28,21 @@ function postLivros(req, res) {
         const body = req.body
         const livro = postLivro(body)
         res.send(livro)
+        res.status(201).send()
     } catch (error) {
         console.log(error)
         res.status(500).send(error.message)
     }
 }
 
-function patchLivros(req, res) {
+function patchLivro(req, res) {
     try {
-        const livro = patchLivro(req.params.id)
+        const id = req.params.id
+        const body = req.body
+        const livro = patchLivroById(id, body)
         if (livro) {
             res.send(livro)
+            res.status(200).send()
         } else {
             res.status(404).send("Livro não encontrado")
         }
@@ -55,6 +57,7 @@ function deleteLivros(req, res) {
         const livro = deleteLivro(req.params.id)
         if (livro) {
             res.send(livro)
+            res.status(200).send()
         } else {
             res.status(404).send("Livro não encontrado")
         }
@@ -68,6 +71,6 @@ module.exports = {
     getLivros,
     getLivro,
     postLivros,
-    patchLivros,
+    patchLivro,
     deleteLivros
 }

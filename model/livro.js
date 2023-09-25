@@ -14,15 +14,21 @@ function getLivroById(id) {
     }
 }
 
-function patchLivro(id) {
-    const livros = getTodosLivros()
-    const livro = livros.find(livro => livro.id === id)
-    if (livro) {
-        livro.emprestado = !livro.emprestado
-        fs.writeFileSync("./model/livros.json", JSON.stringify(livros))
-        return livro
+function patchLivroById(id, body) {
+    const livros = getTodosLivros();
+    const livroIndex = livros.findIndex(livro => livro.id === id);
+
+    if (livroIndex !== -1) {
+        // Update the 'nome' property of the existing livro object
+        livros[livroIndex].nome = body.nome;
+
+        // Write the updated array back to the JSON file
+        fs.writeFileSync("./model/livros.json", JSON.stringify(livros));
+
+        // Return the updated livro object
+        return livros[livroIndex];
     } else {
-        return null
+        return null;
     }
 }
 
@@ -53,7 +59,7 @@ function deleteLivro(id) {
 module.exports = {
     getTodosLivros,
     getLivroById,
-    patchLivro,
+    patchLivroById,
     postLivro,
     deleteLivro
 }
