@@ -56,8 +56,7 @@ function deleteLivros(req, res) {
     try {
         const livro = deleteLivro(req.params.id)
         if (livro) {
-            res.send(livro)
-            res.status(200).send()
+            res.status(200).send("Livro excluído com sucesso!")
         } else {
             res.status(404).send("Livro não encontrado")
         }
