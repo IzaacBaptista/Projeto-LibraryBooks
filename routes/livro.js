@@ -13,6 +13,6 @@ router.patch('/', patchLivro)
 
 router.patch('/:id', patchLivro)
 
-router.delete('/', deleteLivros)
+router.delete('/:id', deleteLivros)
 
 module.exports = router
