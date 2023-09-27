@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { livros } from './dadosPesquisa';
+import {getLivros} from '../../servicos/livros';
 
 const PesquisaContainer = styled.section`
   display: flex;
@@ -69,6 +69,16 @@ const LivroContainer = styled.div`
 
 function Pesquisa() {
   const [livrosEncontrados, setLivrosEncontrados] = useState([]);
+  const [livros, setLivros] = useState([]);
+
+  useEffect(() => {
+    fetchLivros()
+  }, [])
+
+  async function fetchLivros() {
+      const livrosDaAPI = await getLivros()
+      setLivros(livrosDaAPI)
+  }
 
   const handleInputKeyPress = (evento) => {
     if (evento.key === 'Enter') {

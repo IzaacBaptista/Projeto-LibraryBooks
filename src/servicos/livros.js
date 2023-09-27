@@ -5,9 +5,10 @@ const livrosAPi = axios.create({
     baseURL: 'http://localhost:8000/livros',
 });
 
-function getLivros() {
-    const response = livrosAPi.get('/');
-    return response.data;
+async function getLivros() {
+    const response = await livrosAPi.get('/')
+
+    return response.data
 }
 
 function getLivro(id) {
