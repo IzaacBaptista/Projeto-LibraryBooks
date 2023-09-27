@@ -9,8 +9,6 @@ router.get('/:id', getLivro)
 
 router.post('/', postLivros)
 
-router.patch('/', patchLivro)
-
 router.patch('/:id', patchLivro)
 
 router.delete('/:id', deleteLivros)
