@@ -32,7 +32,7 @@ function postLivro(body) {
     const livro = {
         id: (livros.length + 1).toString(),
         nome: body.nome,
-        src: "https://source.unsplash.com/random",
+        src: "https://source.unsplash.com/130x190/?book",
     }
     livros.push(livro)
     fs.writeFileSync("./model/livros.json", JSON.stringify(livros))
