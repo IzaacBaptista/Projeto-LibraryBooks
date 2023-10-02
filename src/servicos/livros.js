@@ -11,23 +11,23 @@ async function getLivros() {
     return response.data
 }
 
-function getLivro(id) {
-    const response = livrosAPi.get(`/${id}`);
+async function getLivro(id) {
+    const response = await livrosAPi.get(`/${id}`);
     return response.data;
 }
 
-function postLivros() {
-    const response = livrosAPi.post('/');
+async function postLivros() {
+    const response = await livrosAPi.post('/');
     return response.data;
 }
 
-function patchLivro(id) {
-    const response = livrosAPi.patch(`/${id}`);
+async function patchLivro(id) {
+    const response = await livrosAPi.patch(`/${id}`);
     return response.data;
 }
 
-function deleteLivros(id) {
-    const response = livrosAPi.delete(`/${id}`);
+async function deleteLivros(id) {
+    const response = await livrosAPi.delete(`/${id}`);
     return response.data;
 }
 
