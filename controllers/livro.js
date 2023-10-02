@@ -1,4 +1,4 @@
-const { getTodosLivros, getLivroById, postLivro, patchLivroById, deleteLivro } = require('../model/livro')
+const { getTodosLivros, getLivroById, postLivro, patchLivroById, deleteLivro, getLivrosByFavoritos } = require('../model/livro')
 
 function getLivro(req, res) {
     try {
@@ -66,10 +66,23 @@ function deleteLivros(req, res) {
     }
 }
 
+function getLivrosFavoritos(req, res) {
+    try {
+        const livros = getLivrosByFavoritos()
+        const livrosFavoritos = livros.filter(livro => livro.favorito)
+        res.send(livrosFavoritos)
+        res.status(200).send()
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error.message)
+    }
+}
+
 module.exports = {
     getLivros,
     getLivro,
     postLivros,
     patchLivro,
-    deleteLivros
+    deleteLivros,
+    getLivrosFavoritos
 }

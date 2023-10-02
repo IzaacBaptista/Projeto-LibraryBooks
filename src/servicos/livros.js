@@ -31,4 +31,10 @@ async function deleteLivros(id) {
     return response.data;
 }
 
-export { getLivros, getLivro, postLivros, patchLivro, deleteLivros };
+async function getLivrosFavoritos() {
+    const response = await livrosAPi.get('/favoritos')
+
+    return response.data
+}
+
+export { getLivros, getLivro, postLivros, patchLivro, deleteLivros, getLivrosFavoritos };

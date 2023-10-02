@@ -4,6 +4,12 @@ function getTodosLivros() {
     return JSON.parse(fs.readFileSync("./model/livros.json"))
 }
 
+function getLivrosByFavoritos() {
+    const livros = getTodosLivros()
+    const livrosFavoritos = livros.filter(livro => livro.favorito === true)
+    return livrosFavoritos
+}
+
 function getLivroById(id) {
     const livros = getTodosLivros()
     const livro = livros.find(livro => livro.id === id)
@@ -56,5 +62,6 @@ module.exports = {
     getLivroById,
     patchLivroById,
     postLivro,
-    deleteLivro
+    deleteLivro,
+    getLivrosByFavoritos
 }
