@@ -1,4 +1,4 @@
-const { getTodosFavoritos, insereFavorito, deletaFavoritoById } = require('../src/servicos/favorito')
+const { getTodosFavoritos, insereFavorito, deletaFavoritoById } = require('../model/favorito')
 
 function getFavoritos(req, res) {
     try {
