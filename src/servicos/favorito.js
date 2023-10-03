@@ -11,7 +11,7 @@ function deletaFavoritoById(id) {
     return livrosFiltrados
 }
 
-function postFavorito(id) {
+function insereFavorito(id) {
     const livros = JSON.parse( fs.readFileSync("../model/livros.json"))
     const favoritos = JSON.parse(fs.readFileSync("favoritos.json"))
     const livroInserido = livros.find(livro => livro.id === id)
@@ -22,4 +22,4 @@ function postFavorito(id) {
     return novaListaDeLivroFavoritos
 }
 
-module.exports = { getTodosFavoritos, deletaFavoritoById, postFavorito }
+module.exports = { getTodosFavoritos, deletaFavoritoById, insereFavorito }
