@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Titulo } from '../Titulo';
+import {postFavorito} from '../../servicos/favoritos';
 
 const LivroContainer = styled.div`
   margin: 10px;
@@ -44,12 +45,17 @@ function UltimosLancamentos() {
       });
   }, []);
 
+  async function insertFavorito(id) {
+    await postFavorito(id)
+    alert('Livro adicionado aos favoritos')
+  }
+
   return (
     <section>
       <Titulo>ULTIMOS LANCAMENTOS</Titulo>
       <UltimosLancamentosContainer>
         {books.map((book, index) => (
-          <LivroContainer key={index}>
+          <LivroContainer key={index} onClick={() => insertFavorito(book.id)}>
             {book.volumeInfo.imageLinks && (
               <img src={book.volumeInfo.imageLinks.smallThumbnail || book.volumeInfo.imageLinks.thumbnail} alt={book.volumeInfo.title} />
             )}

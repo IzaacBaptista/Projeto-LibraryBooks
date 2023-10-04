@@ -25,6 +25,7 @@ function insereFavorito(id) {
         favorito.src = livroFavorito.src
         favorito.favorito = true
     } else {
+        //é da API do google
         return null
     }
 
