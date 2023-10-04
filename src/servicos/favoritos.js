@@ -10,4 +10,14 @@ async function getFavoritos() {
     return response.data
 }
 
-export { getFavoritos }
+async function postFavorito(id) {
+    const response = await favoritosAPI.post(`/${id}`);
+    return response.data;
+}
+
+async function deleteFavorito(id) {
+    const response = await favoritosAPI.delete(`/${id}`);
+    return response.data;
+}
+
+export { getFavoritos, postFavorito, deleteFavorito };
