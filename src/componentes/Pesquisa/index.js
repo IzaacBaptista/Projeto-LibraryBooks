@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import {getLivros} from '../../servicos/livros';
+import {postFavorito} from '../../servicos/favoritos';
 
 const PesquisaContainer = styled.section`
   display: flex;
@@ -80,6 +81,11 @@ function Pesquisa() {
       setLivros(livrosDaAPI)
   }
 
+  async function insertFavorito(id) {
+    await postFavorito(id)
+    alert('Livro adicionado aos favoritos')
+  }
+
   const handleInputKeyPress = (evento) => {
     if (evento.key === 'Enter') {
       const valorDoInput = evento.target.value;
@@ -101,7 +107,7 @@ function Pesquisa() {
       {livrosEncontrados.length > 0 ? (
         <RespostaContainer>
           {livrosEncontrados.map((livro, index) => (
-            <LivroContainer key={index}>
+            <LivroContainer key={index} onClick={() => insertFavorito(livro.id)}>
               <img src={livro.src} alt={livro.nome} />
               <LivroItem>Nome: {livro.nome}</LivroItem>
               <LivroItem>Autor: {livro.autor}</LivroItem>

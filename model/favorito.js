@@ -12,14 +12,25 @@ function deletaFavoritoById(id) {
 }
 
 function insereFavorito(id) {
-    const livros = JSON.parse( fs.readFileSync("./src/model/livros.json"))
-    const favoritos = JSON.parse(fs.readFileSync("./model/favoritos.json"))
-    const livroInserido = livros.find(livro => livro.id === id)
-    const novaListaDeLivroFavoritos = [...favoritos, livroInserido]
+    const favoritos = getTodosFavoritos()
+    const favorito = {
+        id: id,
+    }
 
-    fs.writeFileSync("./model/favoritos.json", JSON.stringify(novaListaDeLivroFavoritos))
+    const livro = JSON.parse(fs.readFileSync("./model/livros.json"))
+    const livroFavorito = livro.find(livro => livro.id === id)
 
-    return novaListaDeLivroFavoritos
+    if (livroFavorito) {
+        favorito.nome = livroFavorito.nome
+        favorito.src = livroFavorito.src
+        favorito.favorito = true
+    } else {
+        return null
+    }
+
+    favoritos.push(favorito)
+    fs.writeFileSync("./model/favoritos.json", JSON.stringify(favoritos))
+    return favoritos
 }
 
 module.exports = { getTodosFavoritos, deletaFavoritoById, insereFavorito }
