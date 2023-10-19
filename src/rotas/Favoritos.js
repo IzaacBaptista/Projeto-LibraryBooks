@@ -44,7 +44,7 @@ function Favoritos() {
     async function removeFavorito(id) {
         await deleteFavorito(id)
         alert('Livro removido dos favoritos')
-        window.location.reload()
+        await fetchFavoritos()
       }
 
     useEffect(() => {
